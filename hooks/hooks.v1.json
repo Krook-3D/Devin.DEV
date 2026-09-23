@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "Devin Development Environment",
+  "description": "Global development hooks for repository safety, validation and project awareness.",
+  "hooks": {
+    "pre_task": [
+      {
+        "name": "inspect_git_state",
+        "description": "Inspect repository state before development work begins.",
+        "command": "git status --short --branch"
+      }
+    ],
+    "pre_commit": [
+      {
+        "name": "check_git_diff",
+        "description": "Review the staged diff before committing.",
+        "command": "git diff --cached --stat"
+      },
+      {
+        "name": "check_secrets",
+        "description": "Check staged files for common credential patterns.",
+        "command": "./hooks/scripts/check-secrets.sh"
+      }
+    ],
+    "post_change": [
+      {
+        "name": "inspect_changes",
+        "description": "Inspect repository changes after development work.",
+        "command": "git status --short"
+      }
+    ]
+  }
+}
